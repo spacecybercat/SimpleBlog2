@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SimpleBlog2.Models.ArticlePhotoModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Zdjęcia do artykułów</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticlePhotoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArticlePhotoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArticleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.ActionLink("Edycja", "Edit", new { id=item.ArticlePhotoId }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id=item.ArticlePhotoId }) |
+                @Html.ActionLink("Usuń", "Delete", new { id=item.ArticlePhotoId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

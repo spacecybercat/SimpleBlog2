@@ -44,6 +44,7 @@ namespace SimpleBlog2
             services.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();
             services.AddTransient<IArticleCommentRepository, ArticleCommentRepository>();
             services.AddTransient<IArticleCommentRateRepository, ArticleCommentRateRepository>();
+            services.AddTransient<IArticlePhotoRepository, ArticlePhotoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

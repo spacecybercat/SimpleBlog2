@@ -1,0 +1,37 @@
+﻿@model SimpleBlog2.Models.ArticlePhotoModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Usuń zdjęcie do artykułu</h2>
+
+<h3>Czy na pewno usunąć to zdjęcie?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticlePhotoId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArticlePhotoId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticleId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArticleId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FileName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Usuń" class="btn btn-default" /> |
+        <a asp-action="Index">Powrót</a>
+    </form>
+</div>

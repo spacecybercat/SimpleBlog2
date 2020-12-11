@@ -1,0 +1,42 @@
+﻿@model SimpleBlog2.Models.ArticlePhotoModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Utwórz zdjęcie do artykułu</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ArticlePhotoId" class="control-label"></label>
+                <input asp-for="ArticlePhotoId" class="form-control" />
+                <span asp-validation-for="ArticlePhotoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArticleId" class="control-label"></label>
+                <input asp-for="ArticleId" class="form-control" />
+                <span asp-validation-for="ArticleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FileName" class="control-label"></label>
+                <input asp-for="FileName" class="form-control" />
+                <span asp-validation-for="FileName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Utwórz" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Powrót</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

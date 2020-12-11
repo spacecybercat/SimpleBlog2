@@ -17,5 +17,6 @@ namespace SimpleBlog2.Models
         public DbSet<ArticleCategoryModel> ArticleCategories { get; set; }
         public DbSet<ArticleCommentModel> ArticleComments { get; set; }
         public DbSet<ArticleCommentRateModel> ArticleCommentRates { get; set; }
+        public DbSet<ArticlePhotoModel> ArticlePhotos { get; set; }
     }
 }

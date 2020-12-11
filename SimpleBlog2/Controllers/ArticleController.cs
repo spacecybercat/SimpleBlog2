@@ -6,17 +6,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog2.Models;
 using SimpleBlog2.Repositories;
+using SimpleBlog2.ViewModels;
 
 namespace SimpleBlog2.Controllers
 {
     public class ArticleController : Controller
     {
         private readonly IArticleRepository _articleRepository;
+        private readonly IArticleCategoryRepository _articleCategoryRepository;
 
-        public ArticleController(IArticleRepository articleRepository)
+        public ArticleController(IArticleRepository articleRepository, IArticleCategoryRepository articleCategoryRepository)
         {
             _articleRepository = articleRepository;
+            _articleCategoryRepository = articleCategoryRepository;
         }
+
 
         // GET: Article
         public ActionResult Index()
@@ -33,7 +37,8 @@ namespace SimpleBlog2.Controllers
         // GET: Article/Create
         public ActionResult Create()
         {
-            return View(new ArticleModel());
+            var viewModel = new ArticleCreateViewModel { Article = new ArticleModel(), ArticleCategories = _articleCategoryRepository.GetAll()};
+            return View(viewModel);
         }
 
         // POST: Article/Create
