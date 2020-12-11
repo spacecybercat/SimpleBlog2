@@ -1,25 +1,19 @@
-﻿@model SimpleBlog2.Models.ArticleModel
+﻿@model SimpleBlog2.Models.ArticleCommentModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>@Model.Title</h2>
+<h2>Szczegóły komentarza do artykułu</h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.Author)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Author)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Text)
@@ -36,6 +30,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edycja", "Edit", new { id = Model.ArticleId }) |
-    <a asp-action="Index">Powtót</a>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleCommentId }) |
+    <a asp-action="Index">Powrót</a>
 </div>

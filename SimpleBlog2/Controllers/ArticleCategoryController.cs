@@ -69,7 +69,7 @@ namespace SimpleBlog2.Controllers
         // POST: ArticleCategory/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, ArticleCategoryModel articleCategory)
         {
             _articleCategoryRepository.Delete(id);
             return RedirectToAction(nameof(Index));

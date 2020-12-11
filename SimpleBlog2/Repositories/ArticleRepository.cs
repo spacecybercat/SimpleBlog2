@@ -36,7 +36,6 @@ namespace SimpleBlog2.Repositories
                 result.DateOfPublish = article.DateOfPublish;
                 result.Text = article.Text;
                 result.Title = article.Title;
-
                 _context.SaveChanges();
             }
         }
@@ -44,7 +43,7 @@ namespace SimpleBlog2.Repositories
         public void Delete(int articleId)
         {
             var result = _context.Articles.SingleOrDefault(x => x.ArticleId == articleId);
-            if(result !=null)
+            if(result != null)
             {
                 _context.Articles.Remove(result);
                 _context.SaveChanges();
