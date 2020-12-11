@@ -41,6 +41,7 @@ namespace SimpleBlog2
                 options.UseSqlServer(Configuration.GetConnectionString("SimpleBlog2Database")));
 
             services.AddTransient<IArticleRepository, ArticleRepository>();
+            services.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
