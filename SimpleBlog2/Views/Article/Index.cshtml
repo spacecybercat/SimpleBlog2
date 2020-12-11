@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SimpleBlog2.Models.ArticleModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>SimpleBlog2</h2>
+
+<p>
+    <a asp-action="Create">Dodaj artykuł</a>
+</p>
+<table class="table">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArticleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfPublish)
+            </td>
+            <td>
+                @Html.ActionLink("Edycja", "Edit", new { id=item.ArticleId  }) |
+                @Html.ActionLink("Czytaj dalej", "Details", new { id=item.ArticleId }) |
+                @Html.ActionLink("Usuń", "Delete", new { id=item.ArticleId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

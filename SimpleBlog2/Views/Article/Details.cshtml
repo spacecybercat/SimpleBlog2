@@ -1,0 +1,42 @@
+﻿@model SimpleBlog2.Models.ArticleModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>@Model.Title</h2>
+
+<div>
+    <h4>ArticleModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfPublish)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOfPublish)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edycja", "Edit", new { id = Model.ArticleId }) |
+    <a asp-action="Index">Powtót</a>
+</div>

@@ -1,0 +1,49 @@
+﻿@model SimpleBlog2.Models.ArticleModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Usuń artykuł</h2>
+
+<h3>Czy na pewno chcesz usunąć ten artykuł?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AuthorId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfPublish)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOfPublish)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Usuń" class="btn btn-default" /> |
+        <a asp-action="Index">Powrót</a>
+    </form>
+</div>
