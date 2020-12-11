@@ -1,0 +1,42 @@
+﻿@model SimpleBlog2.Models.ArticleCommentRateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Utwórz ocenę komentarza do artykułu</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ArticleCommentRateId" class="control-label"></label>
+                <input asp-for="ArticleCommentRateId" class="form-control" />
+                <span asp-validation-for="ArticleCommentRateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArticleCommentId" class="control-label"></label>
+                <input asp-for="ArticleCommentId" class="form-control" />
+                <span asp-validation-for="ArticleCommentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Utwórz" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Powrót</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
