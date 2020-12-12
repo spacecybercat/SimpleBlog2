@@ -14,11 +14,13 @@ namespace SimpleBlog2.Controllers
     {
         private readonly IArticleRepository _articleRepository;
         private readonly IArticleCategoryRepository _articleCategoryRepository;
+        private readonly IArticlePhotoRepository _articlePhotoRepository;
 
-        public ArticleController(IArticleRepository articleRepository, IArticleCategoryRepository articleCategoryRepository)
+        public ArticleController(IArticleRepository articleRepository, IArticleCategoryRepository articleCategoryRepository, IArticlePhotoRepository articlePhotoRepository)
         {
             _articleRepository = articleRepository;
             _articleCategoryRepository = articleCategoryRepository;
+            _articlePhotoRepository = articlePhotoRepository;
         }
 
 
@@ -44,9 +46,10 @@ namespace SimpleBlog2.Controllers
         // POST: Article/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ArticleModel articleModel)
+        public ActionResult Create(ArticleCreateViewModel viewModel)
         {
-            _articleRepository.Add(articleModel);
+            _articleRepository.Add(viewModel.Article);
+            _articlePhotoRepository.Add(viewModel);
             return RedirectToAction(nameof(Index));
         }
 

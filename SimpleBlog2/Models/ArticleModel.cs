@@ -13,7 +13,14 @@ namespace SimpleBlog2.Models
     {
         [Key]
         public int ArticleId { get; set; }
+
+        [DisplayName("Autor")]
+        [Required(ErrorMessage = "Pole Autor jest wymagane.")]
+        [MaxLength(30)]
         public string AuthorId { get; set; }
+
+        [DisplayName("Kategoria")]
+        [Required(ErrorMessage = "Pole Kategoria jest wymagane.")]
         public int CategoryId { get; set; }
 
         [DisplayName("Tytuł")]

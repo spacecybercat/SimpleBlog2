@@ -10,5 +10,6 @@ namespace SimpleBlog2.ViewModels
     {
         public ArticleModel Article { get; set; }
         public IQueryable<ArticleCategoryModel> ArticleCategories { get; set; }
+        public ArticlePhotoModel ArticlePhoto { get; set; }
     }
 }
