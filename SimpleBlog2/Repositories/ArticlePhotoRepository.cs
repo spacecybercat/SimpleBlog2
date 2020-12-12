@@ -37,7 +37,7 @@ namespace SimpleBlog2.Repositories
             viewModel.ArticlePhoto.ArticleId = viewModel.Article.ArticleId;
             viewModel.ArticlePhoto.FileName = viewModel.ArticlePhoto.PhotoFile.FileName;
 
-            //Save image to /images/Articles/
+            //Save ArticlePhoto to /images/Articles/
             string wwwRootPath = _webHostEnvironment.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(viewModel.ArticlePhoto.FileName);
             string fileExtension = Path.GetExtension(viewModel.ArticlePhoto.FileName);
@@ -48,7 +48,7 @@ namespace SimpleBlog2.Repositories
                 viewModel.ArticlePhoto.PhotoFile.CopyToAsync(fileStream);
             }
 
-            //Insert into DB
+            //Insert ArticlePhoto into DB
             _context.Add(viewModel.ArticlePhoto);
             _context.SaveChanges();
         }
@@ -63,11 +63,16 @@ namespace SimpleBlog2.Repositories
             }
         }
 
-        public void Delete(int articlePhotoId)
+        public void Delete(int articleId)
         {
-            var result = _context.ArticlePhotos.SingleOrDefault(x => x.ArticlePhotoId == articlePhotoId);
+            var result = _context.ArticlePhotos.SingleOrDefault(x => x.ArticleId == articleId);
             if(result != null)
             {
+                //delete ArticlePhoto from /images/Articles
+                var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images/Articles", result.FileName);
+                if (System.IO.File.Exists(imagePath))
+                    System.IO.File.Delete(imagePath);
+                //delete ArticlePhoto from DB
                 _context.ArticlePhotos.Remove(result);
                 _context.SaveChanges();
             }

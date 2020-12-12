@@ -80,6 +80,7 @@ namespace SimpleBlog2.Controllers
         public ActionResult Delete(int id, ArticleModel articleModel)
         {
             _articleRepository.Delete(id);
+            _articlePhotoRepository.Delete(id);
             return RedirectToAction(nameof(Index));
         }
     }
