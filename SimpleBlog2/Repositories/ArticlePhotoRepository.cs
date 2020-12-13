@@ -27,6 +27,13 @@ namespace SimpleBlog2.Repositories
         public IQueryable<ArticlePhotoModel> GetAll()
             => _context.ArticlePhotos;
 
+        public ArticlePhotoModel GetByArticleId(int articleId)
+        {
+            var result = _context.ArticlePhotos.SingleOrDefault(x => x.ArticleId == articleId);
+            return result;
+        }
+
+
         public void Add(ArticlePhotoModel articlePhoto)
         {
             _context.ArticlePhotos.Add(articlePhoto);
@@ -45,7 +52,7 @@ namespace SimpleBlog2.Repositories
             string filePath = Path.Combine(wwwRootPath + "/images/Articles", fileName);
             using(var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                viewModel.ArticlePhoto.PhotoFile.CopyToAsync(fileStream);
+                viewModel.ArticlePhoto.PhotoFile.CopyTo(fileStream);
             }
 
             //Insert ArticlePhoto into DB
@@ -63,7 +70,7 @@ namespace SimpleBlog2.Repositories
             }
         }
 
-        public void Delete(int articleId)
+        public async void Delete(int articleId)
         {
             var result = _context.ArticlePhotos.SingleOrDefault(x => x.ArticleId == articleId);
             if(result != null)
@@ -74,7 +81,7 @@ namespace SimpleBlog2.Repositories
                     System.IO.File.Delete(imagePath);
                 //delete ArticlePhoto from DB
                 _context.ArticlePhotos.Remove(result);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
     }

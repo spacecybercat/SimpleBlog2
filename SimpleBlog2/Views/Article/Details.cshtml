@@ -1,41 +1,72 @@
-﻿@model SimpleBlog2.Models.ArticleModel
+﻿@model SimpleBlog2.ViewModels.ArticleDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>@Model.Title</h2>
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-12">
+            <img src="@("/images/Articles/"+ Model.ArticlePhoto.FileName)" alt="Article foto" class="img-fluid" style="width:100%;height:auto;">
+        </div>
+    </div>
+    <div class="row g-0">
+        <div class="col-md-12">
+            <p style="padding:15px;margin:0;">
+                <small class="text-muted">Komentarze: @Model.ArticleComments.Count</small>
+                <small class="text-muted">| Kategoria: @Model.ArticleCategories.SingleOrDefault(x => x.ArticleCategoryId == Model.Article.CategoryId).Name</small>
+                <small class="text-muted">| Data publikacji: @Model.Article.DateOfPublish.ToString("yyyy-MM-dd HH:mm")</small>
+                <small class="text-muted">| Autor: @Model.Article.AuthorId</small>
+            </p>
+            <hr style="margin:0;"/>
+            <p class="h2" style="padding:15px; padding-bottom:0; margin:0;">
+                @Model.Article.Title
+            </p>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateOfPublish)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateOfPublish)
-        </dd>
-    </dl>
+            <p style="padding:15px;white-space: pre-line">@Model.Article.Text</p>
+        </div>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edycja", "Edit", new { id = Model.ArticleId }) |
-    <a asp-action="Index">Powtót</a>
+
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-1"></div>
+        <div class="col-10">
+            @foreach (var comment in Model.ArticleComments)
+            {
+                <div class="card mb-3" style="margin-top:15px;">
+                    <p style="padding:15px;margin:0; background-color:#eaeaea">
+                        <small class="text-muted">Data dodania: @comment.DateOfPublish.ToString("yyyy-MM-dd HH:mm")</small>
+                        <small class="text-muted">| Autor: @comment.Author</small>
+                    </p>
+                    <hr style="margin:0;" />
+                    <p style="padding: 15px; white-space: pre-line">@comment.Text</p>
+                </div>
+            }
+        <br />
+        <hr />
+        <br />
+        <h2>Dodaj komentarz:</h2>
+        <br />
+        <div class="col-md-12" style="margin-top:15px;">
+            <form asp-controller="ArticleComment" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="NewComment.ArticleId" readonly hidden value="@Model.Article.ArticleId" />
+                <div class="mb-3">
+                    <label asp-for="NewComment.Author" class="control-label"></label>
+                    <input asp-for="NewComment.Author" class="form-control" required />
+                    <span asp-validation-for="NewComment.Author" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="NewComment.Text" class="control-label"></label>
+                    <textarea asp-for="NewComment.Text" class="form-control" rows="4" required></textarea>
+                    <span asp-validation-for="NewComment.Text" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" value="Utwórz" class="btn btn-secondary" />
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
 </div>

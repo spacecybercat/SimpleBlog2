@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog2.Models;
 using SimpleBlog2.Repositories;
+using SimpleBlog2.ViewModels;
 
 namespace SimpleBlog2.Controllers
 {
@@ -36,13 +37,22 @@ namespace SimpleBlog2.Controllers
             return View(new ArticleCommentModel());
         }
 
+        //// POST: ArticleComment/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(ArticleCommentModel articleComment)
+        //{
+        //    _articleCommentRepository.Add(articleComment);
+        //    return RedirectToAction("Details", "Article", new { id = articleComment.ArticleId});
+        //}
+
         // POST: ArticleComment/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ArticleCommentModel articleComment)
+        public ActionResult Create(ArticleDetailsViewModel viewModel)
         {
-            _articleCommentRepository.Add(articleComment);
-            return RedirectToAction(nameof(Index));
+            _articleCommentRepository.Add(viewModel);
+            return RedirectToAction("Details", "Article", new { id = viewModel.NewComment.ArticleId });
         }
 
         // GET: ArticleComment/Edit/5

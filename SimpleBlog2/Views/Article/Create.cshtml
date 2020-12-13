@@ -21,7 +21,6 @@
                 <select class="form-select" asp-for="Article.CategoryId" asp-items="@(new SelectList(Model.ArticleCategories, "ArticleCategoryId", "Name"))">
                     <option>Wybierz kategorię</option>
                 </select>
-                @*<input asp-for="CategoryId" class="form-control" />*@
                 <span asp-validation-for="Article.CategoryId" class="text-danger"></span>
             </div>
             <div class="mb-3">

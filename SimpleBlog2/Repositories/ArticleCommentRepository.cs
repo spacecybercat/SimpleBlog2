@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SimpleBlog2.Models;
+using SimpleBlog2.ViewModels;
 
 namespace SimpleBlog2.Repositories
 {
@@ -23,8 +24,26 @@ namespace SimpleBlog2.Repositories
 
         public void Add(ArticleCommentModel articleComment)
         {
+            articleComment.DateOfPublish = DateTime.Now;
             _context.ArticleComments.Add(articleComment);
             _context.SaveChanges();
+        }
+
+        public void Add(ArticleDetailsViewModel viewModel)
+        {
+            if(viewModel != null && viewModel.NewComment.ArticleId != 0)
+            {
+                var comment = viewModel.NewComment;
+                comment.DateOfPublish = DateTime.Now;
+                _context.ArticleComments.Add(comment);
+                _context.SaveChanges();
+            }
+        }
+
+        public IQueryable<ArticleCommentModel> GetAllForArticle(int articleId)
+        {
+            var result = _context.ArticleComments.Where(x => x.ArticleId == articleId);
+            return result;
         }
 
         public void Update(int articleCommentId, ArticleCommentModel articleComment)

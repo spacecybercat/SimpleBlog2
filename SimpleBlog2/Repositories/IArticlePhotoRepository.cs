@@ -11,6 +11,7 @@ namespace SimpleBlog2.Repositories
     {
         ArticlePhotoModel Get(int articlePhotoId);
         IQueryable<ArticlePhotoModel> GetAll();
+        ArticlePhotoModel GetByArticleId(int articleId);
         void Add(ArticlePhotoModel articlePhoto);
         void Add(ArticleCreateViewModel viewModel);
         void Update(int articlePhotoId, ArticlePhotoModel articlePhoto);

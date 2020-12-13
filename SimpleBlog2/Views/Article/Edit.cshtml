@@ -1,38 +1,59 @@
-﻿@model SimpleBlog2.Models.ArticleModel
+﻿@model SimpleBlog2.ViewModels.ArticleCreateViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edycja artykułu</h2>
+<h2>Dodaj artykuł</h2>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-12">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            @Html.HiddenFor(x => x.Article.ArticleId)
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Article.AuthorId" class="control-label"></label>
+                <input asp-for="Article.AuthorId" class="form-control" />
+                <span asp-validation-for="Article.AuthorId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Article.CategoryId" class="control-label"></label><br />
+                <select class="form-select" asp-for="Article.CategoryId" asp-items="@(new SelectList(Model.ArticleCategories, "ArticleCategoryId", "Name"))">
+                    <option>Wybierz kategorię</option>
+                </select>
+                <span asp-validation-for="Article.CategoryId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Text" class="control-label"></label>
-                <input asp-for="Text" class="form-control" />
-                <span asp-validation-for="Text" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Article.Title" class="control-label"></label>
+                <input asp-for="Article.Title" class="form-control" />
+                <span asp-validation-for="Article.Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DateOfPublish" class="control-label"></label>
-                <input asp-for="DateOfPublish" class="form-control" />
-                <span asp-validation-for="DateOfPublish" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Article.Text" class="control-label"></label>
+                <textarea asp-for="Article.Text" class="form-control" rows="10"></textarea>
+                <span asp-validation-for="Article.Text" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Zapisz" class="btn btn-default" />
+            <div class="mb-3">
+                <label asp-for="Article.DateOfPublish" class="control-label"></label>
+                <input asp-for="Article.DateOfPublish" class="form-control" />
+                <span asp-validation-for="Article.DateOfPublish" class="text-danger"></span>
+            </div>
+            @if (Model.ArticlePhoto != null)
+            {
+                <div class="mb-3">
+                    <a herf="@Url.Action("Delete", "ArticlePhoto", new { articlePhoto = Model.ArticlePhoto})">
+                    <img src="@("/images/Articles/" + Model.ArticlePhoto.FileName)" alt="Article foto" class="img-fluid" style="max-height:128px;">
+                    </a>
+                </div>
+            }
+            <div class="mb-3">
+                <label asp-for="ArticlePhoto.PhotoFile" class="control-label"></label>
+                <input asp-for="ArticlePhoto.PhotoFile" class="form-control" accept="image/*" />
+                <span asp-validation-for="ArticlePhoto.PhotoFile" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Zapisz" class="btn btn-secondary" />
             </div>
         </form>
     </div>
@@ -45,3 +66,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+

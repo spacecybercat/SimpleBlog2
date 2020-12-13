@@ -15,25 +15,29 @@ namespace SimpleBlog2.Controllers
         private readonly IArticleRepository _articleRepository;
         private readonly IArticleCategoryRepository _articleCategoryRepository;
         private readonly IArticlePhotoRepository _articlePhotoRepository;
+        private readonly IArticleCommentRepository _articleCommentRepository;
 
-        public ArticleController(IArticleRepository articleRepository, IArticleCategoryRepository articleCategoryRepository, IArticlePhotoRepository articlePhotoRepository)
+        public ArticleController(IArticleRepository articleRepository, IArticleCategoryRepository articleCategoryRepository, IArticlePhotoRepository articlePhotoRepository, IArticleCommentRepository articleCommentRepository)
         {
             _articleRepository = articleRepository;
             _articleCategoryRepository = articleCategoryRepository;
             _articlePhotoRepository = articlePhotoRepository;
+            _articleCommentRepository = articleCommentRepository;
         }
 
 
         // GET: Article
         public ActionResult Index()
         {
-            return View(_articleRepository.GetAll());
+            var viewModel = new ArticleIndexViewModel { Articles = _articleRepository.GetAll().ToList(), ArticlePhotos = _articlePhotoRepository.GetAll().ToList(), ArticleComments = _articleCommentRepository.GetAll().ToList(), ArticleCategories = _articleCategoryRepository.GetAll().ToList() };
+            return View(viewModel);
         }
 
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
-            return View(_articleRepository.Get(id));
+            var viewModel = new ArticleDetailsViewModel { Article = _articleRepository.Get(id), ArticlePhoto = _articlePhotoRepository.GetByArticleId(id), ArticleCategories = _articleCategoryRepository.GetAll().ToList(), ArticleComments = _articleCommentRepository.GetAllForArticle(id).ToList() };
+            return View(viewModel);
         }
 
         // GET: Article/Create
@@ -56,15 +60,16 @@ namespace SimpleBlog2.Controllers
         // GET: Article/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(_articleRepository.Get(id));
+            var viewModel = new ArticleCreateViewModel { Article = _articleRepository.Get(id), ArticleCategories = _articleCategoryRepository.GetAll(), ArticlePhoto = _articlePhotoRepository.GetByArticleId(id) };
+            return View(viewModel);
         }
 
         // POST: Article/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, ArticleModel articleModel)
+        public ActionResult Edit(ArticleCreateViewModel viewModel)
         {
-            _articleRepository.Update(id, articleModel);
+            _articleRepository.Update(viewModel);
             return RedirectToAction(nameof(Index));
         }
 

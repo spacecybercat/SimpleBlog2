@@ -1,39 +1,61 @@
-﻿@model IEnumerable<SimpleBlog2.Models.ArticleModel>
+﻿@model SimpleBlog2.ViewModels.ArticleIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>SimpleBlog2</h2>
-
+<h1>SimpleBlog2</h1>
+@foreach (var item in Model.Articles)
+{
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-2">
+                <img src="@("/images/Articles/"+ Model.ArticlePhotos.SingleOrDefault(x => x.ArticleId == item.ArticleId).FileName)" alt="Article foto" class="img-fluid" style="height:128px;">
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.ActionLink(item.Title, "Details", new { id = item.ArticleId }, new { @class = "link-dark" })</h5>
+                    <p class="card-text" style="overflow:hidden; max-height:24px;">@item.Text</p>
+                    <p class="card-text">
+                        <small class="text-muted">Komentarze: @Model.ArticleComments.Where(x => x.ArticleId == item.ArticleId).Count()</small>
+                        <small class="text-muted">| Kategoria: @Model.ArticleCategories.SingleOrDefault(x => x.ArticleCategoryId == item.CategoryId).Name</small>
+                        <small class="text-muted">| Data publikacji: @item.DateOfPublish.ToString("yyyy-MM-dd HH:mm")</small>
+                        <small class="text-muted">| Autor: @item.AuthorId</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <p>
     <a asp-action="Create">Dodaj artykuł</a>
 </p>
-<table class="table">
+@*<table class="table">
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArticleId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfPublish)
-            </td>
-            <td>
-                @Html.ActionLink("Edycja", "Edit", new { id=item.ArticleId  }) |
-                @Html.ActionLink("Czytaj dalej", "Details", new { id=item.ArticleId }) |
-                @Html.ActionLink("Usuń", "Delete", new { id=item.ArticleId })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArticleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfPublish)
+                </td>
+                <td>
+                    @Html.ActionLink("Edycja", "Edit", new { id = item.ArticleId }) |
+                    @Html.ActionLink("Czytaj dalej", "Details", new { id = item.ArticleId }) |
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleId })
+                </td>
+            </tr>
+        }
     </tbody>
-</table>
+</table>*@

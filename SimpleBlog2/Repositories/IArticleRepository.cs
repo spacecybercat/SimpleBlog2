@@ -1,4 +1,5 @@
 ﻿using SimpleBlog2.Models;
+using SimpleBlog2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SimpleBlog2.Repositories
         ArticleModel Get(int articleId);
         IQueryable<ArticleModel> GetAll();
         void Add(ArticleModel article);
-        void Update(int articleId, ArticleModel article);
+        void Update(ArticleCreateViewModel viewModel);
         void Delete(int articleId);
     }
 }
