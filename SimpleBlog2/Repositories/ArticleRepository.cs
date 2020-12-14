@@ -48,8 +48,6 @@ namespace SimpleBlog2.Repositories
                 var resultPhoto = _context.ArticlePhotos.SingleOrDefault(x => x.ArticleId == viewModel.Article.ArticleId);
                 if (resultPhoto != null)
                 {
-                    
-
                     //delete ArticlePhoto from /images/Articles
                     var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images/Articles", resultPhoto.FileName);
                     if (System.IO.File.Exists(imagePath))
@@ -71,7 +69,6 @@ namespace SimpleBlog2.Repositories
                     {
                         viewModel.ArticlePhoto.PhotoFile.CopyTo(fileStream);
                     }
-
                     //Insert ArticlePhoto into DB
                     _context.Add(viewModel.ArticlePhoto);
                     _context.SaveChanges();

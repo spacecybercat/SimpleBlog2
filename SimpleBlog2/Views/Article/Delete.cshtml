@@ -1,7 +1,8 @@
-﻿@model SimpleBlog2.Models.ArticleModel
+﻿@model SimpleBlog2.ViewModels.ArticleCreateViewModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Usuwanie artykułu";
+    Layout = "_LayoutManage";
 }
 
 <h2>Usuń artykuł</h2>
@@ -11,39 +12,48 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AuthorId)
+            @Html.DisplayNameFor(model => model.Article.AuthorId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.AuthorId)
+            @Html.DisplayFor(model => model.Article.AuthorId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.Article.CategoryId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
+            @if (Model.ArticleCategories.SingleOrDefault(x => x.ArticleCategoryId == Model.Article.CategoryId) != null)
+            {
+                @Html.DisplayFor(model => model.ArticleCategories.SingleOrDefault(x => x.ArticleCategoryId == model.Article.CategoryId).Name)
+            }
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Article.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Article.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Text)
+            @Html.DisplayNameFor(model => model.Article.Text)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Text)
+            @Html.DisplayFor(model => model.Article.Text)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DateOfPublish)
+            @Html.DisplayNameFor(model => model.Article.DateOfPublish)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DateOfPublish)
+            @Html.DisplayFor(model => model.Article.DateOfPublish)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticlePhoto)
+        </dt>
+        <dd>
+            <img src="@("/images/Articles/" + Model.ArticlePhoto.FileName)" alt="Article foto" class="img-fluid" style="max-height:128px;">
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Usuń" class="btn btn-default" /> |
-        <a asp-action="Index">Powrót</a>
+        <input type="submit" value="Usuń" class="btn btn-danger" />
+        <a asp-action="ArticleManage" class="btn btn-secondary">Powrót</a>
     </form>
 </div>

@@ -70,7 +70,7 @@ namespace SimpleBlog2.Repositories
             }
         }
 
-        public async void Delete(int articleId)
+        public void Delete(int articleId)
         {
             var result = _context.ArticlePhotos.SingleOrDefault(x => x.ArticleId == articleId);
             if(result != null)
@@ -81,7 +81,7 @@ namespace SimpleBlog2.Repositories
                     System.IO.File.Delete(imagePath);
                 //delete ArticlePhoto from DB
                 _context.ArticlePhotos.Remove(result);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
     }

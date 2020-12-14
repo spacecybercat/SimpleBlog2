@@ -65,5 +65,15 @@ namespace SimpleBlog2.Repositories
                 _context.SaveChanges();
             }
         }
+
+        public void DeleteByArticleId(int articleId)
+        {
+            var result = _context.ArticleComments.Where(x => x.ArticleId == articleId);
+            if(result != null)
+            {
+                _context.ArticleComments.RemoveRange(result);
+                _context.SaveChanges();
+            }
+        }
     }
 }

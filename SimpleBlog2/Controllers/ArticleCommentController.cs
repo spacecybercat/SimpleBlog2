@@ -13,16 +13,19 @@ namespace SimpleBlog2.Controllers
     public class ArticleCommentController : Controller
     {
         private readonly IArticleCommentRepository _articleCommentRepository;
+        private readonly IArticleRepository _articleRepository;
 
-        public ArticleCommentController(IArticleCommentRepository articleCommentRepository)
+        public ArticleCommentController(IArticleCommentRepository articleCommentRepository, IArticleRepository articleRepository)
         {
             _articleCommentRepository = articleCommentRepository;
+            _articleRepository = articleRepository;
         }
 
         // GET: ArticleComment
         public ActionResult Index()
         {
-            return View(_articleCommentRepository.GetAll());
+            var viewModel = new ArticleCommentManageViewModel { ArticleComments = _articleCommentRepository.GetAll().ToList(), Articles = _articleRepository.GetAll().ToList() };
+            return View(viewModel);
         }
 
         // GET: ArticleComment/Details/5

@@ -1,7 +1,8 @@
 ﻿@model SimpleBlog2.Models.ArticleCommentModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Szczegóły komentarza";
+    Layout = "_LayoutManage";
 }
 
 <h2>Szczegóły komentarza do artykułu</h2>
@@ -30,6 +31,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edycja", "Edit", new { id = Model.ArticleCommentId }) |
-    <a asp-action="Index">Powrót</a>
+    @Html.ActionLink("Edycja", "Edit", new { id = Model.ArticleCommentId }, new { @class = "btn btn-primary" })
+    <a asp-action="Index" class="btn btn-secondary">Powrót</a>
 </div>

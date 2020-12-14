@@ -1,7 +1,8 @@
 ﻿@model SimpleBlog2.ViewModels.ArticleCreateViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tworzenie artykułu";
+    Layout = "_LayoutManage";
 }
 
 <h2>Dodaj artykuł</h2>
@@ -51,7 +52,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Powrót</a>
+    <a asp-action="ArticleManage">Powrót</a>
 </div>
 
 @section Scripts {

@@ -1,20 +1,18 @@
 ﻿@model IEnumerable<SimpleBlog2.Models.ArticleCategoryModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Zarządzanie kategoriami";
+    Layout = "_LayoutManage";
 }
 
 <h2>Kategorie artukułów</h2>
 
 <p>
-    <a asp-action="Create">Dodaj nową kategorię</a>
+    <a asp-action="Create" class="btn btn-success">Dodaj nową kategorię</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ArticleCategoryId)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -25,15 +23,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ArticleCategoryId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink("Edycja", "Edit", new { id = item.ArticleCategoryId }) |
-                @Html.ActionLink("Szczegóły", "Details", new { id = item.ArticleCategoryId}) |
-                @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleCategoryId })
+                @Html.ActionLink("Edycja", "Edit", new { id = item.ArticleCategoryId }, new { @class= "btn btn-primary" })
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ArticleCategoryId}, new { @class = "btn btn-primary" }) 
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleCategoryId }, new { @class = "btn btn-danger" })
             </td>
         </tr>
 }

@@ -1,7 +1,8 @@
 ﻿@model SimpleBlog2.Models.ArticleCategoryModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Usuwanie kategorii";
+    Layout = "_LayoutManage";
 }
 
 <h2>Usuwanie kategorii artykułów</h2>
@@ -19,7 +20,7 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Usuń" class="btn btn-default" /> |
-        <a asp-action="Index">Powrót</a>
+        <input type="submit" value="Usuń" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Powrót</a>
     </form>
 </div>

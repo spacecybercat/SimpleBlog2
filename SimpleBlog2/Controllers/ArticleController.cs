@@ -33,6 +33,13 @@ namespace SimpleBlog2.Controllers
             return View(viewModel);
         }
 
+        //GET: ArticleManage
+        public ActionResult ArticleManage()
+        {
+            var viewModel = new ArticleManageViewModel { ArticleList = _articleRepository.GetAll().ToList(), ArticleCategoryList = _articleCategoryRepository.GetAll().ToList() };
+            return View(viewModel);
+        }
+
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
@@ -70,13 +77,14 @@ namespace SimpleBlog2.Controllers
         public ActionResult Edit(ArticleCreateViewModel viewModel)
         {
             _articleRepository.Update(viewModel);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ArticleManage));
         }
 
         // GET: Article/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(_articleRepository.Get(id));
+            var viewModel = new ArticleCreateViewModel { Article = _articleRepository.Get(id), ArticleCategories = _articleCategoryRepository.GetAll(), ArticlePhoto = _articlePhotoRepository.GetByArticleId(id) };
+            return View(viewModel);
         }
 
         // POST: Article/Delete/5
@@ -86,7 +94,8 @@ namespace SimpleBlog2.Controllers
         {
             _articleRepository.Delete(id);
             _articlePhotoRepository.Delete(id);
-            return RedirectToAction(nameof(Index));
+            _articleCommentRepository.DeleteByArticleId(id);
+            return RedirectToAction(nameof(ArticleManage));
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿@model IEnumerable<SimpleBlog2.Models.ArticleCommentModel>
+﻿@model SimpleBlog2.ViewModels.ArticleCommentManageViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Zarządzanie komentarzami";
+    Layout = "_LayoutManage";
 }
 
 <h2>Komentarze do artykułów</h2>
@@ -10,33 +11,39 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                @Html.DisplayNameFor(model => model.ArticleComments.SingleOrDefault().Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Text)
+                @Html.DisplayNameFor(model => model.ArticleComments.SingleOrDefault().Text)
+            </th>
+            <th style="max-width:600px;">
+                Tytuł artykułu
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfPublish)
+                @Html.DisplayNameFor(model => model.ArticleComments.SingleOrDefault().DateOfPublish)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.ArticleComments) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
             </td>
-            <td>
+            <td style="width:30%">
                 @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Model.Articles.SingleOrDefault(x => x.ArticleId == item.ArticleId).Title
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfPublish)
             </td>
             <td>
-                @Html.ActionLink("Edycja", "Edit", new { id=item.ArticleCommentId }) |
-                @Html.ActionLink("Szczegóły", "Details", new { id=item.ArticleCommentId  }) |
-                @Html.ActionLink("Usuń", "Delete", new { id=item.ArticleCommentId })
+                @Html.ActionLink("Edycja", "Edit", new { id=item.ArticleCommentId }, new { @class="btn btn-primary"})
+                @Html.ActionLink("Szczegóły", "Details", new { id=item.ArticleCommentId  }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Usuń", "Delete", new { id=item.ArticleCommentId }, new { @class = "btn btn-danger" })
             </td>
         </tr>
 }

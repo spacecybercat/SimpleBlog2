@@ -1,0 +1,54 @@
+﻿@model SimpleBlog2.ViewModels.ArticleManageViewModel
+
+@{
+    ViewData["Title"] = "Zarządzanie artykułami";
+    Layout = "_LayoutManage";
+}
+
+<h2>Zarządzanie Artykułami</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Dodaj nowy artykuł</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleList.SingleOrDefault().AuthorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleList.SingleOrDefault().CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleList.SingleOrDefault().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleList.SingleOrDefault().DateOfPublish)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ArticleList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.ArticleCategoryList.SingleOrDefault(x => x.ArticleCategoryId == item.CategoryId).Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfPublish)
+            </td>
+            <td>
+                @Html.ActionLink("Edycja", "Edit", new { id = item.ArticleId }, new  {@class="btn btn-primary"})
+                @Html.ActionLink("Szczegóły", "Details", new { id=item.ArticleId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Usuń", "Delete", new { id=item.ArticleId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -16,5 +16,6 @@ namespace SimpleBlog2.Repositories
         void Add(ArticleDetailsViewModel viewModel);
         void Update(int articleCommentId, ArticleCommentModel articleComment);
         void Delete(int articleCommentId, ArticleCommentModel articleComment);
+        void DeleteByArticleId(int articleId);
     }
 }

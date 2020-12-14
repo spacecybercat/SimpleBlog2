@@ -25,6 +25,7 @@ namespace SimpleBlog2.Models
         [MaxLength(1000)]
         public string Text { get; set; }
 
+        [DisplayName("Data komentarza")]
         public DateTime DateOfPublish { get; set; }
     }
 }

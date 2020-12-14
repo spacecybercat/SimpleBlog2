@@ -1,7 +1,8 @@
 ﻿@model SimpleBlog2.Models.ArticleCategoryModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edycja kategorii";
+    Layout = "_LayoutManage";
 }
 
 <h2>Edycja kategorii artykułów</h2>
@@ -11,20 +12,17 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Zapisz" class="btn btn-default" />
+            <div class="mb-3">
+                <input type="submit" value="Zapisz" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-secondary">Powrót</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Powrót</a>
 </div>
 
 @section Scripts {

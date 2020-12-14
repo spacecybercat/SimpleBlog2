@@ -1,10 +1,11 @@
 ﻿@model SimpleBlog2.ViewModels.ArticleDetailsViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Szczegóły artykułu";
+    Layout = "_LayoutManage";
 }
 
-<div class="card mb-3">
+<div class="card mb-3 col-10">
     <div class="row g-0">
         <div class="col-md-12">
             <img src="@("/images/Articles/"+ Model.ArticlePhoto.FileName)" alt="Article foto" class="img-fluid" style="width:100%;height:auto;">
@@ -14,7 +15,14 @@
         <div class="col-md-12">
             <p style="padding:15px;margin:0;">
                 <small class="text-muted">Komentarze: @Model.ArticleComments.Count</small>
-                <small class="text-muted">| Kategoria: @Model.ArticleCategories.SingleOrDefault(x => x.ArticleCategoryId == Model.Article.CategoryId).Name</small>
+                @if (Model.ArticleCategories.SingleOrDefault(x => x.ArticleCategoryId == Model.Article.CategoryId) != null)
+                {
+                    <small class="text-muted">| Kategoria: @Model.ArticleCategories.SingleOrDefault(x => x.ArticleCategoryId == Model.Article.CategoryId).Name</small>
+                }
+                else
+                {
+                    <small class="text-muted">| Kategoria: Brak</small>
+                }
                 <small class="text-muted">| Data publikacji: @Model.Article.DateOfPublish.ToString("yyyy-MM-dd HH:mm")</small>
                 <small class="text-muted">| Autor: @Model.Article.AuthorId</small>
             </p>
@@ -28,7 +36,7 @@
     </div>
 </div>
 
-<div class="card mb-3">
+<div class="card mb-3 col-10">
     <div class="row g-0">
         <div class="col-1"></div>
         <div class="col-10">
@@ -44,10 +52,7 @@
                 </div>
             }
         <br />
-        <hr />
-        <br />
-        <h2>Dodaj komentarz:</h2>
-        <br />
+        <h3>Dodaj komentarz:</h3>
         <div class="col-md-12" style="margin-top:15px;">
             <form asp-controller="ArticleComment" asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -63,7 +68,7 @@
                     <span asp-validation-for="NewComment.Text" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <input type="submit" value="Utwórz" class="btn btn-secondary" />
+                    <input type="submit" value="Utwórz" class="btn btn-success" />
                 </div>
             </form>
         </div>
